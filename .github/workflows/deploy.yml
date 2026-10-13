@@ -40,6 +40,18 @@ jobs:
         run: |
           cd app
           zip -r ../terraform/lambda.zip . -x "__pycache__/*" "*.pyc"
+      
+      - name: Diagnose backend variable
+        env:
+          CHECK_BUCKET: ${{ vars.TF_STATE_BUCKET }}
+        run: |
+          if [ -n "$CHECK_BUCKET" ]; then
+            echo "Repository variable is available."
+          else
+            echo "Repository variable is unavailable to this workflow."
+            exit 1
+          fi
+
       - name: Create backend config
         run: |
           test -n "$TF_STATE_BUCKET"
