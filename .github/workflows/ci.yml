@@ -32,4 +32,8 @@ jobs:
           terraform_version: "1.10.5"
       - run: terraform fmt -check -recursive
       - run: terraform init -backend=false
+      - name: Package Lambda
+        run: |
+          cd app
+          zip -r ../terraform/lambda.zip .
       - run: terraform validate
