@@ -23,15 +23,15 @@ resource "aws_cloudwatch_log_group" "lambda" {
 }
 
 resource "aws_lambda_function" "app" {
-  function_name = var.project_name
-  description   = "Low-cost Python platform engineering learning application"
-  role          = aws_iam_role.lambda_execution.arn
-  runtime       = "python3.12"
-  handler       = "handler.handler"
+  function_name    = var.project_name
+  description      = "Low-cost Python platform engineering learning application"
+  role             = aws_iam_role.lambda_execution.arn
+  runtime          = "python3.12"
+  handler          = "handler.handler"
   filename         = "${path.module}/lambda.zip"
   source_code_hash = filebase64sha256("${path.module}/lambda.zip")
-  memory_size = var.lambda_memory_mb
-  timeout     = var.lambda_timeout_seconds
+  memory_size      = var.lambda_memory_mb
+  timeout          = var.lambda_timeout_seconds
 
   environment {
     variables = {
