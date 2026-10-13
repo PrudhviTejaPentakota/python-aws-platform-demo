@@ -33,7 +33,8 @@ jobs:
       - run: terraform fmt -check -recursive
       - run: terraform init -backend=false
       - name: Package Lambda
+        working-directory: .
         run: |
-          cd app
-          zip -r ../terraform/lambda.zip .
+          zip -r terraform/lambda.zip app/
+
       - run: terraform validate
